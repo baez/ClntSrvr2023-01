@@ -2,6 +2,7 @@
 {
     using System;
     using ConsoleApp1.Network;
+    using ConsoleApp1.LangReview;
 
     public class Program
     {
@@ -9,6 +10,9 @@
         {
             var program = new Program();
             program.TestHostInformation();
+
+            var exploreLang = new ExploreCollections();
+            exploreLang.UsePrintNames();
         }
 
         private void TestHostInformation()
