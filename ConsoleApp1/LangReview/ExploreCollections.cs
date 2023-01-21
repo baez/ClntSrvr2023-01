@@ -24,5 +24,13 @@
                 Console.WriteLine(name);
             }
         }
+
+        public void PrintNames(List<string> names)
+        {
+            foreach (string name in names)
+            {
+                Console.WriteLine(name);
+            }
+        }
     }
 }
