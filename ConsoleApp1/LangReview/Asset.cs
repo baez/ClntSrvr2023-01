@@ -7,5 +7,10 @@
     public class Asset
     {
         public string Name { get; set; }
+
+        public virtual decimal GetLiability()
+        {
+            return 0;
+        }
     }
 }

@@ -62,6 +62,30 @@
 
             this.Display(myFirstStock);
             this.Display(myHouse);
+
+            Stock stock2 = new Stock();
+            Asset asset2 = stock2; // implicit Upcase
+
+            Console.WriteLine(asset2.Name);
+            // Console.WriteLine(asset2.Shares); // compile error
+
+            Stock stock3 = (Stock)asset2; // explicit Downcast
+            Console.WriteLine(stock3.Shares);
+
+            House house2 = new House();
+            Asset asset3 = house2;
+            // Stock stock4 = (Stock)asset3; // runtime error
+
+            // as operator
+            Asset asset5 = new Asset();
+            Stock stock5 = asset5 as Stock;
+            this.Display(stock5);
+
+            // is operator
+            if (asset3 is House)
+            {
+                Console.WriteLine(((House)asset3).Mortgage);
+            }
         }
 
         /// <summary>
@@ -71,7 +95,10 @@
         /// <param name="asset"></param>
         public void Display(Asset asset)
         {
-            Console.WriteLine("Asset.NAme:{0}", asset.Name);
+            if (asset != null)
+            {
+                Console.WriteLine("Asset.Name:{0}", asset.Name);
+            }
         }
     }
 
