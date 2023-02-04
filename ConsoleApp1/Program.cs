@@ -4,15 +4,74 @@
     using ConsoleApp1.Network;
     using ConsoleApp1.LangReview;
     using System.Collections.Generic;
+    using System.Threading;
     using mine = ConsoleApp1.LangReview;
     public class Program
     {
+        private static object _lock = new object();
+
+        private static bool _done = false;
         static void Main(string[] args)
         {
-            var program = new Program();
-            program.TestGenericStack();
-            
 
+            // var program = new Program();
+            // program.TestGenericStack();
+            TestThread();
+        }
+
+        public static void TestThread()
+        {
+
+            Thread t = new Thread(WriteChar);
+            t.Start();
+
+            Console.WriteLine($"main by: {Thread.CurrentThread.ManagedThreadId}");
+            // main thread
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write($"x{i} ");
+                Thread.Sleep(100);
+                Thread.Sleep(0);  // same as Thread.Yield();
+                Thread.Yield();
+            }
+
+            Thread t2 = new Thread(Do);
+            t2.Start();
+
+            Do();
+
+            Console.WriteLine("thread main finished");
+            Console.WriteLine("thread main waiting");
+
+            t.Join(); // blocks the current thread and waits for thread t to finish
+            Console.WriteLine("thread t has ended");
+
+            t2.Join();
+            Console.WriteLine("thread t2 has ended");
+        }
+
+        public static void WriteChar()
+        {
+            Console.WriteLine($"WriteChar by: {Thread.CurrentThread.ManagedThreadId}");
+            // new thread
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write($"Y{i} ");
+                Thread.Sleep(200);
+            }
+        }
+
+        public static void Do()
+        {
+            lock (_lock)
+            {
+                if (!_done)
+                {
+                    _done = true;
+                    Console.WriteLine($"=== Done === by: {Thread.CurrentThread.ManagedThreadId}");
+
+                }
+            }
         }
 
         private void TestDictionary()
