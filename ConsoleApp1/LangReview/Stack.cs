@@ -17,11 +17,20 @@ namespace ConsoleApp1.LangReview
             _data = new T[size];
         }
 
+        public int Count()
+        {
+            return _position;
+        }
+
         public void Push(T item)
         {
             if (_position < _size)
             {
                 _data[_position++] = item;
+            }
+            else
+            {
+                throw new Exception("stack is full");
             }
         }
 

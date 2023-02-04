@@ -3,7 +3,8 @@
     using System;
     using ConsoleApp1.Network;
     using ConsoleApp1.LangReview;
-
+    using System.Collections.Generic;
+    using mine = ConsoleApp1.LangReview;
     public class Program
     {
         static void Main(string[] args)
@@ -11,17 +12,45 @@
             var program = new Program();
             program.TestGenericStack();
             
+
+        }
+
+        private void TestDictionary()
+        {
+            var document1 = new Document() { Id = "Envi001", Title = "Enviroment Report 02/03", Author = "Jon Voight", Text = "some text ..." };
+            var document2 = new Document() { Id = "News001", Title = "World News 02/03", Author = "Mark Anthony", Text = "news text ..." };
+
+            var documents = new Dictionary<string, Document>();
+            documents.Add(document1.Id, document1);
+            documents.Add(document2.Id, document2);
+
+            var doc1 = documents[document1.Id];
         }
 
         private void TestGenericStack()
         {
-            var stackInt = new Stack<int>();
-            stackInt.Push(1);
-            stackInt.Push(2);
-            var val = stackInt.Pop();
-            val = stackInt.Pop();
-            val = stackInt.Pop();
+            try
+            {
+                var stackInt = new mine.Stack<int>(size: 2);
 
+                stackInt.Push(1);
+                stackInt.Push(2);
+
+                stackInt.Push(3);
+
+
+                var val = stackInt.Pop();
+                val = stackInt.Pop();
+                val = stackInt.Pop();
+            }
+            catch(Exception ex) 
+            { 
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.Write("finally executing");
+            }
         }
 
         private void TestSimpleTypes()
