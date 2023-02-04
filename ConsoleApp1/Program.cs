@@ -9,10 +9,23 @@
         static void Main(string[] args)
         {
             var program = new Program();
-            program.TestHostInformation();
-
-            program.InheritanceExamples();
+            program.TestGenericStack();
             
+        }
+
+        private void TestGenericStack()
+        {
+            var stackInt = new Stack<int>();
+            stackInt.Push(1);
+            stackInt.Push(2);
+            var val = stackInt.Pop();
+            val = stackInt.Pop();
+            val = stackInt.Pop();
+
+        }
+
+        private void TestSimpleTypes()
+        {
             var exploreLang = new ExploreCollections();
             exploreLang.UsePrintNames();
 
