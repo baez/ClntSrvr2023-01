@@ -8,4 +8,3 @@
     {
         public abstract decimal NetValue { get; }
     }
-}
