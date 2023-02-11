@@ -6,6 +6,8 @@
     using System.Collections.Generic;
     using System.Threading;
     using mine = ConsoleApp1.LangReview;
+    using System.Threading.Tasks;
+
     public class Program
     {
         private static object _lock = new object();
@@ -13,10 +15,58 @@
         private static bool _done = false;
         static void Main(string[] args)
         {
+            var program = new Program();
 
-            // var program = new Program();
-            // program.TestGenericStack();
-            TestThread();
+            try
+            {
+                program.TaskThatThrowsException();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        private void TaskThatThrowsException()
+        {
+            Task task = Task.Run(() => { throw null; });
+
+            try
+            {
+                task.Wait();
+            }
+            catch(AggregateException aex)
+            {
+                if (aex.InnerException is NullReferenceException)
+                {
+                    Console.WriteLine("null reference exception");
+                    throw new NullReferenceException();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        private void TestThreads()
+        {
+            var program = new Program();
+            Thread t = new Thread(program.Print);
+            t.Start("hello from main");
+
+            Thread t2 = new Thread(() => program.Print2("hello from main"));
+
+            Task.Run(() => Console.WriteLine("Task test"));
+            new Thread(() => Console.WriteLine("Thread test")).Start();
+        }
+
+        void Print2(string message) => Console.WriteLine(message);
+
+        public void Print(object messageObj)
+        {
+            string message = (string)messageObj; // we need to cast here
+            Console.WriteLine(message);
         }
 
         public static void TestThread()
