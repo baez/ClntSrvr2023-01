@@ -9,20 +9,45 @@
     {
         public async Task TestSimpleTaskFunc()
         {
-            await Print();
-            var answer = await GetAnswer();
+            Print();
+
+            await PrintAsync();
+            var answer = await GetAnswerAsync();
         }
 
-        private async Task Print()
+        public async Task TestSimpleTaskFunc2()
         {
-            await Task.Delay(1000);
+            Print();
+            // thread A
+            // 
+            var task1 =  PrintAsync();      // thread B
+            var task2 = GetAnswerAsync();   // thread C
+
+            // thread A
+            // do some heavy calculations 
+            Console.WriteLine("before await");
+
+            await task2;
+            await task1;
+            Console.WriteLine("done task 1 & task2");
+        }
+
+        private void Print()
+        {
             int i = 3 * 2;
             Console.WriteLine(i);
         }
 
-        private async Task<int> GetAnswer()
+        private async Task PrintAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(5000);
+            int i = 3 * 2;
+            Console.WriteLine(i);
+        }
+
+        private async Task<int> GetAnswerAsync()
+        {
+            await Task.Delay(5000);
             int i = 3 * 2;
 
             return i;

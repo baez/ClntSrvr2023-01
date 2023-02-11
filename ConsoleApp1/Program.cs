@@ -15,8 +15,11 @@
         private static bool _done = false;
         static async Task Main(string[] args)
         {
-            var taskAsyncIntro = new TaskAsyncIntro();
-            await taskAsyncIntro.TestSimpleTaskFunc();
+            // var taskAsyncIntro = new TaskAsyncIntro();
+            // await taskAsyncIntro.TestSimpleTaskFunc2();
+
+            var fio = new StreamsIntro();
+            fio.FileInputOutput("test1.txt");
         }
 
         private void TestTaskThatThrowsException()
