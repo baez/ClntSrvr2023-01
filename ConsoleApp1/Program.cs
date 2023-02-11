@@ -13,7 +13,13 @@
         private static object _lock = new object();
 
         private static bool _done = false;
-        static void Main(string[] args)
+        static async Task Main(string[] args)
+        {
+            var taskAsyncIntro = new TaskAsyncIntro();
+            await taskAsyncIntro.TestSimpleTaskFunc();
+        }
+
+        private void TestTaskThatThrowsException()
         {
             var program = new Program();
 
@@ -21,7 +27,7 @@
             {
                 program.TaskThatThrowsException();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
