@@ -17,7 +17,8 @@
         private static bool _done = false;
         static async Task Main(string[] args)
         {
-            
+            var prg = new Program();
+            await prg.CallDocumentServiceThroughRepository();
 
             // var taskAsyncIntro = new TaskAsyncIntro();
             // await taskAsyncIntro.TestSimpleTaskFunc2();

@@ -44,7 +44,9 @@ namespace ConsoleApp1.LangReview
             try
             {
                 var httpClient = new HttpClient();
-                var url = $"https://localhost:44385?id={id}";
+
+                // https://localhost:44385/api/document?id=ha12
+                var url = $"https://localhost:44385/api/document?id={id}";
                 documentAsString = await httpClient.GetStringAsync(url);
             }
             catch(Exception e)
