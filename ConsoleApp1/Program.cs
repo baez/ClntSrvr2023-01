@@ -23,8 +23,8 @@
             // var taskAsyncIntro = new TaskAsyncIntro();
             // await taskAsyncIntro.TestSimpleTaskFunc2();
 
-            // var fio = new StreamsIntro();
-            // fio.FileInputOutput("test1.txt");
+            var fio = new StreamsIntro();
+            fio.FileInputOutput("test1.txt");
         }
 
         private async Task CallDocumentServiceThroughRepository()
