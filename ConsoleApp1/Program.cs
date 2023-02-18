@@ -8,6 +8,7 @@
     using mine = ConsoleApp1.LangReview;
     using System.Threading.Tasks;
     using DataModels;
+    using System.Net.Http;
 
     public class Program
     {
@@ -16,11 +17,19 @@
         private static bool _done = false;
         static async Task Main(string[] args)
         {
-            var taskAsyncIntro = new TaskAsyncIntro();
-            await taskAsyncIntro.TestSimpleTaskFunc2();
+            
+
+            // var taskAsyncIntro = new TaskAsyncIntro();
+            // await taskAsyncIntro.TestSimpleTaskFunc2();
 
             // var fio = new StreamsIntro();
             // fio.FileInputOutput("test1.txt");
+        }
+
+        private async Task CallDocumentServiceThroughRepository()
+        {
+            var documentRepository = new DocumentRepository();
+            var doc = await documentRepository.GetFromService("d0987");
         }
 
         private void TestTaskThatThrowsException()

@@ -1,6 +1,8 @@
 ﻿using DataModels;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ConsoleApp1.LangReview
 {
@@ -34,6 +36,23 @@ namespace ConsoleApp1.LangReview
             }
 
             return null;
+        }
+
+        public async Task<string> GetFromService(string id)
+        {
+            string documentAsString = null;
+            try
+            {
+                var httpClient = new HttpClient();
+                var url = $"https://localhost:44385?id={id}";
+                documentAsString = await httpClient.GetStringAsync(url);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return documentAsString;
         }
 
         public Document Get2(string Id)
