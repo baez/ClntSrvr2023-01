@@ -20,8 +20,11 @@
             Print();
             // thread A
             // 
-            var task1 =  PrintAsync();      // thread B
+            var task1 = PrintAsync();        // thread B
             var task2 = GetAnswerAsync();   // thread C
+
+            // thread A
+            Print();
 
             // thread A
             // do some heavy calculations 

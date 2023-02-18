@@ -7,6 +7,7 @@
     using System.Threading;
     using mine = ConsoleApp1.LangReview;
     using System.Threading.Tasks;
+    using DataModels;
 
     public class Program
     {
@@ -15,11 +16,11 @@
         private static bool _done = false;
         static async Task Main(string[] args)
         {
-            // var taskAsyncIntro = new TaskAsyncIntro();
-            // await taskAsyncIntro.TestSimpleTaskFunc2();
+            var taskAsyncIntro = new TaskAsyncIntro();
+            await taskAsyncIntro.TestSimpleTaskFunc2();
 
-            var fio = new StreamsIntro();
-            fio.FileInputOutput("test1.txt");
+            // var fio = new StreamsIntro();
+            // fio.FileInputOutput("test1.txt");
         }
 
         private void TestTaskThatThrowsException()
