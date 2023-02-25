@@ -17,8 +17,8 @@ namespace DocumentService.Controllers
         /// <summary>
         /// Sample call uri https://localhost:44385/api/document?id=3
         /// Azure uri https://docservgbk20230224.azurewebsites.net/api/document?id=3
-        /// 2/25
-        /// New sample uri: https://localhost:44385/api/document/id?val=3
+        /// 
+        /// 2/25 ==> New sample uri: https://localhost:44385/api/document/id?val=3
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
