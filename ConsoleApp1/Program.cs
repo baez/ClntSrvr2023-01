@@ -30,7 +30,7 @@
         private async Task CallDocumentServiceThroughRepository()
         {
             var documentRepository = new DocumentRepository();
-            var doc = await documentRepository.GetFromService("d0987");
+            var doc = await documentRepository.GetFromService("https://localhost:44385/api/document", "d0987");
         }
 
         private void TestTaskThatThrowsException()

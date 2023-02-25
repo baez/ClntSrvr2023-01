@@ -1,12 +1,15 @@
-﻿using DataModels;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using DataModels;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using Repositories;
 
 namespace DocumentService.Controllers
 {
     public class DocumentController : Controller
     {
+        private IDocumentRepository documentRepository = new DocumentRepository();
+
         /// <summary>
         /// Sample call uri https://localhost:44385/api/document?id=3
         /// Azure uri https://docservgbk20230224.azurewebsites.net/api/document?id=3
@@ -17,29 +20,41 @@ namespace DocumentService.Controllers
         [Route("api/[controller]")]
         public ActionResult<Document> Get(string id)
         {
-            Document doc = null;
-            if (Convert.ToInt16(id) == 1)
+            Document document = documentRepository.Get(id);
+
+            if (document == null)
             {
-                doc = new Document()
+                if (Convert.ToInt16(id) == 1)
                 {
-                    Id = id,
-                    Title = "cstp 1303 news today 2/25 9 AM",
-                    Author = "George Karim",
-                    Text = "Due to weather conditions, our class is online today :)"
-                };
-            }
-            else
-            {
-                doc = new Document()
+                    document = new Document()
+                    {
+                        Id = id,
+                        Title = "cstp 1303 news today 2/25 9 AM",
+                        Author = "George Karim",
+                        Text = "Due to weather conditions, our class is online today :)"
+                    };
+                }
+                else
                 {
-                    Id = id,
-                    Title = "cstp 1303 topics today",
-                    Author = "George Karim",
-                    Text = "Consuming a Web API"
-                };
+                    document = new Document()
+                    {
+                        Id = id,
+                        Title = "cstp 1303 topics today",
+                        Author = "George Karim",
+                        Text = "Consuming a Web API"
+                    };
+                }
             }
 
-            return doc;
+            return document;
         }
     }
+
+    //[HttpGet]
+    //[Route("api/[controller]")]
+
+    //public ActionResult<List<Document>> GetAll(string author, string title)
+    //{
+
+    //}
 }

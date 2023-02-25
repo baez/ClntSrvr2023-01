@@ -3,16 +3,32 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Interfaces;
 
-namespace ConsoleApp1.LangReview
+namespace Repositories
 {
-    public class DocumentRepository : IDocumentRepository, ILanguageInterpreter
+    public class DocumentRepository : IDocumentRepository
     {
-        private List<Document> _documents;
+        private List<Document> _documents = new List<Document>()
+        {
+            new Document()
+            {
+                Id = "709",
+                Title = "cstp 1303 weather reposrt 2/25 12:20 PM",
+                Author = "George Karim",
+                Text = "So far no snow :)"
+            },
+            new Document()
+            {
+                Id = "710",
+                Title = "cstp 1303 weather reposrt 2/25 3 PM",
+                Author = "George Karim",
+                Text = "snow started :("
+            }
+        };
 
         public DocumentRepository()
         {
-            _documents = new List<Document>();
         }
 
         public bool IsInitialized 
@@ -36,6 +52,25 @@ namespace ConsoleApp1.LangReview
             }
 
             return null;
+        }
+
+        public async Task<string> GetFromService(string baseUri, string id)
+        {
+            string documentAsString = null;
+            try
+            {
+                var httpClient = new HttpClient();
+
+                // https://localhost:44385/api/document?id=ha12 -- https://localhost:44385/api/document?id={id}";
+                var uri = $"{baseUri}?id={id}";
+                documentAsString = await httpClient.GetStringAsync(uri);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return documentAsString;
         }
 
         public Document Get2(string Id)
