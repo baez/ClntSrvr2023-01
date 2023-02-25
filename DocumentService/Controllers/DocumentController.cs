@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DataModels;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,25 +11,30 @@ namespace DocumentService.Controllers
     {
         private IDocumentRepository documentRepository = new DocumentRepository();
 
+
+        // The request matched multiple endpoints
+
         /// <summary>
         /// Sample call uri https://localhost:44385/api/document?id=3
         /// Azure uri https://docservgbk20230224.azurewebsites.net/api/document?id=3
+        /// 2/25
+        /// New sample uri: https://localhost:44385/api/document/id?val=3
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/[controller]")]
-        public ActionResult<Document> Get(string id)
+        [Route("api/[controller]/id")]
+        public ActionResult<Document> Get(string val)
         {
-            Document document = documentRepository.Get(id);
+            Document document = documentRepository.Get(val);
 
             if (document == null)
             {
-                if (Convert.ToInt16(id) == 1)
+                if (Convert.ToInt16(val) == 1)
                 {
                     document = new Document()
                     {
-                        Id = id,
+                        Id = val,
                         Title = "cstp 1303 news today 2/25 9 AM",
                         Author = "George Karim",
                         Text = "Due to weather conditions, our class is online today :)"
@@ -38,7 +44,7 @@ namespace DocumentService.Controllers
                 {
                     document = new Document()
                     {
-                        Id = id,
+                        Id = val,
                         Title = "cstp 1303 topics today",
                         Author = "George Karim",
                         Text = "Consuming a Web API"
@@ -48,13 +54,37 @@ namespace DocumentService.Controllers
 
             return document;
         }
+
+
+        /// <summary>
+        /// sample call uri: https://localhost:44385/api/document/author?val=3
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/[controller]/author")]
+
+        public ActionResult<List<Document>> GetAll(string val)
+        {
+            var docs = new List<Document>()
+            {
+                new Document()
+                {
+                    Id = "101",
+                    Title = "cstp 1303 news today 2/25 9 AM",
+                    Author = "George Karim",
+                    Text = "Due to weather conditions, our class is online today :)"
+                },
+                new Document()
+                {
+                    Id = "102",
+                    Title = "cstp 1303 topics today",
+                    Author = "George Karim",
+                    Text = "Consuming a Web API"
+                }
+            };
+
+            return docs;
+        }
     }
-
-    //[HttpGet]
-    //[Route("api/[controller]")]
-
-    //public ActionResult<List<Document>> GetAll(string author, string title)
-    //{
-
-    //}
 }
