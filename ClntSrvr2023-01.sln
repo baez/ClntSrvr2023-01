@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositorie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{24D88C50-A1BA-4371-8E4E-4302457A4764}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentClientApp", "DocumentClientApp", "{79709246-FD15-474F-AD75-7F8B76C065D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentServer", "DocumentServer", "{E646BE8E-1CA2-4727-B615-3E1E408D1C28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B9F9B150-F0A1-4C66-A28B-D80225D1BD13} = {E646BE8E-1CA2-4727-B615-3E1E408D1C28}
+		{10EC0069-5BEE-492C-98AC-E2962A999352} = {79709246-FD15-474F-AD75-7F8B76C065D6}
+		{4195BC4D-31F6-45BE-926A-841199A7BE58} = {E646BE8E-1CA2-4727-B615-3E1E408D1C28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {970C1239-97A7-4056-A8BC-9D1D7D01CACD}
