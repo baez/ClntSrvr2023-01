@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using DataModels;
     using System.Net.Http;
+    using static System.Net.WebRequestMethods;
 
     public class Program
     {
@@ -17,16 +18,35 @@
         private static bool _done = false;
         static async Task Main(string[] args)
         {
-            // var prg = new Program();
-            // prg.TestTaskThatThrowsException();
-            
-            //await prg.CallDocumentServiceThroughRepository();
+            var prg = new Program();
+            await prg.TestGetUriSum();
+            await prg.TestAsyncFuncsAndAwait();
 
-            //// var taskAsyncIntro = new TaskAsyncIntro();
-            //// await taskAsyncIntro.TestSimpleTaskFunc2();
+        }
 
-            //var fio = new StreamsIntro();
-            //fio.FileInputOutput("test1.txt");
+        private async Task TestGetUriSum()
+        {
+            var ex = new TaskAsyncIntro();
+            var uris = new string[]
+            {
+                "https://docservgbk20230224.azurewebsites.net/api/document?id=3",
+                "https://docservgbk20230224.azurewebsites.net/api/document?id=1"
+            };
+
+            var sum = await ex.GetTotalFileSize(uris);
+            Console.WriteLine($"Total size of given Uris: {sum}");
+        }
+
+        private async Task TestAsyncFuncsAndAwait()
+        {
+            var taskAsyncIntro = new TaskAsyncIntro();
+            await taskAsyncIntro.TestRunningTasksAndAwait();
+        }
+
+        private void TestStreamsIntro()
+        {
+            var fio = new StreamsIntro();
+            fio.FileInputOutput("test1.txt");
         }
 
         private async Task CallDocumentServiceThroughRepository()
