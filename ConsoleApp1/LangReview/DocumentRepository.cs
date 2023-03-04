@@ -86,5 +86,11 @@ namespace ConsoleApp1.LangReview
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<string> GetFromService(string uri, string Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
