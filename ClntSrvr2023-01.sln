@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentService", "Document
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\DataModels.csproj", "{A9624BC4-F0C4-46E7-9754-F9FD5DDC8C8F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentClientConsole", "DocumentClientConsole\DocumentClientConsole.csproj", "{10EC0069-5BEE-492C-98AC-E2962A999352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentClientTestApp", "DocumentClientConsole\DocumentClientTestApp.csproj", "{10EC0069-5BEE-492C-98AC-E2962A999352}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{4195BC4D-31F6-45BE-926A-841199A7BE58}"
 EndProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentClientApp", "Docume
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentServer", "DocumentServer", "{E646BE8E-1CA2-4727-B615-3E1E408D1C28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleAPI", "ExampleAPI\ExampleAPI.csproj", "{B5992AC8-616B-4E2B-8C62-35AA808AB5E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAPI", "ExampleAPI\ExampleAPI.csproj", "{B5992AC8-616B-4E2B-8C62-35AA808AB5E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
