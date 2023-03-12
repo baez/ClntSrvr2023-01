@@ -8,7 +8,7 @@
     {
         static async Task Main(string[] args)
         {
-            var testApp = new DocumentAPITests();
+            var testApp = new DocumentAPITests();   
             await testApp.GetDocumentTest();   
         }
 
