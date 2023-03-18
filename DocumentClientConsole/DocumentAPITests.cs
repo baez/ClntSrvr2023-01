@@ -19,9 +19,24 @@
             var documentClientProgram = new DocumentAPITests();
             // https://localhost:44385/api/document?id=ha12 -- https://localhost:44385/api/document?id={id}";
             // localhost:44385 https://docservgbk20230224.azurewebsites.net/api/document
+
+            // use for running the version published on cloud
             var baseUri = "https://docservgbk20230224.azurewebsites.net/api/document";
+
+            // use this Uri for tests with localhost (when running the service on local box)
+            var localBaseUri = "https://localhost:44385/api/document/id";
             var id = "3";
-            var doc = await documentClientProgram.GetDocument(baseUri, id);
+            var doc = await documentClientProgram.GetDocument(localBaseUri, id);
+
+            if (string.IsNullOrWhiteSpace(doc) 
+                || !doc.Contains("testKeyName") || !doc.Contains("testKeyword"))
+            {
+                Console.WriteLine($"*** TEST FAILED *** {localBaseUri}");
+            }
+            else
+            {
+                Console.WriteLine("Test passed :) ");
+            }
 
             Console.WriteLine(doc);
         }
@@ -33,7 +48,7 @@
             {
                 var httpClient = new HttpClient();
 
-                var uri = $"{baseUri}?id={id}";
+                var uri = $"{baseUri}?val={id}";
                 documentAsString = await httpClient.GetStringAsync(uri);
             }
             catch (Exception e)

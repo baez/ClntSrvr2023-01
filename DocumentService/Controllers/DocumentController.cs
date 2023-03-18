@@ -15,9 +15,9 @@ namespace DocumentService.Controllers
         // The request matched multiple endpoints
 
         /// <summary>
-        /// Sample call uri https://localhost:44385/api/document?id=3
-        /// Azure uri https://docservgbk20230224.azurewebsites.net/api/document?id=3
         /// 
+        /// Azure uri https://docservgbk20230224.azurewebsites.net/api/document?id=3
+        /// [Route("api/document/id")]
         /// 2/25 ==> New sample uri: https://localhost:44385/api/document/id?val=3
         /// </summary>
         /// <param name="id"></param>
@@ -46,8 +46,8 @@ namespace DocumentService.Controllers
                     {
                         Id = val,
                         Title = "cstp 1303 topics today",
-                        Author = "George Karim",
-                        Text = "Consuming a Web API"
+                        Author = "George K testKeyName",
+                        Text = "Consuming a Web API testKeyword"
                     };
                 }
             }
