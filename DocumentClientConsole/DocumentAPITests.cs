@@ -19,8 +19,6 @@
             Console.WriteLine("Get Document Test");
 
             var documentClientProgram = new DocumentAPITests();
-            // https://localhost:44385/api/document?id=ha12 -- https://localhost:44385/api/document?id={id}";
-            // localhost:44385 https://docservgbk20230224.azurewebsites.net/api/document
 
             // use for running the version published on cloud
             var baseUri = "https://docservgbk20230224.azurewebsites.net/api/document";
