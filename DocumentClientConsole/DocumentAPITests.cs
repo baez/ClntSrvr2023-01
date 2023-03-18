@@ -3,6 +3,8 @@
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using DataModels;
+    using Newtonsoft.Json;
 
     internal class DocumentAPITests
     {
@@ -35,7 +37,10 @@
             }
             else
             {
+                // Desrialization of a string received by the client back into an in-memory object
+                var document = JsonConvert.DeserializeObject<Document>(doc);
                 Console.WriteLine("Test passed :) ");
+                Console.WriteLine($"Title received from the service: {document.Title}");
             }
 
             Console.WriteLine(doc);

@@ -9,23 +9,29 @@ namespace Repositories
 {
     public class DocumentRepository : IDocumentRepository
     {
-        private List<Document> _documents = new List<Document>()
+        private static Document defaultDoc1 = new Document()
         {
-            new Document()
-            {
-                Id = "709",
-                Title = "cstp 1303 weather reposrt 2/25 12:20 PM",
-                Author = "George Karim",
-                Text = "So far no snow :)"
-            },
-            new Document()
-            {
-                Id = "710",
-                Title = "cstp 1303 weather reposrt 2/25 3 PM",
-                Author = "George Karim",
-                Text = "snow started :("
-            }
+            Id = "3",
+            Title = "cstp 1303 Summer 2022",
+            Author = "George K.",
+            Text = "Notes from summer 2022 :)"
         };
+
+        private static Document defaultDoc2 = new Document()
+        {
+            Id = "71",
+            Title = "cstp 1303 Winter 2022",
+            Author = "George K.",
+            Text = "Notes from winter 2022"
+        };
+
+        private static List<KeyValuePair<string, Document>> defaultDocuments = new List<KeyValuePair<string, Document>>()
+        {
+            new KeyValuePair<string, Document>("3", defaultDoc1),
+            new KeyValuePair<string, Document>("71", defaultDoc2)
+        };
+
+        private static Dictionary<string, Document> _documents = new Dictionary<string, Document>(defaultDocuments);
 
         public DocumentRepository()
         {
@@ -41,14 +47,19 @@ namespace Repositories
 
         public void Add(Document document)
         {
-            _documents.Add(document);    
+            _documents.Add(document.Id, document);
         }
 
-        public Document Get(string Id)
+        public Document Get(string id)
         {
-            foreach (Document document in _documents) 
-            { 
-                if (document.Id == Id) return document;
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentNullException(nameof(id), "id cannot be null or empty.");
+            }
+
+            if (_documents.TryGetValue(id, out Document value))
+            {
+                return value;
             }
 
             return null;
@@ -73,39 +84,15 @@ namespace Repositories
             return documentAsString;
         }
 
-        public Document Get2(string Id)
-        {
-            return _documents.Find(x => x.Id == Id);
-        }
+        //public void Remove(Document document)
+        //{
+        //    _documents.Remove(document);
+        //}
 
-        public List<Document> GetAll(string title)
-        {
-            var result = new List<Document>();
-            foreach (Document document in _documents) 
-            { 
-                if (document.Title == title) 
-                {
-                    result.Add(document);
-                }
-            }
-
-            return result;
-        }
-
-        public List<Document> GetAll2(string title) 
-        {
-            return _documents.FindAll(x => x.Title == title);
-        }
-
-        public void Remove(Document document)
-        {
-            _documents.Remove(document);
-        }
-
-        public void Update(string id, Document document)
-        {
-            throw new NotImplementedException();
-        }
+        //public void Update(string id, Document document)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void Initialize()
         {
