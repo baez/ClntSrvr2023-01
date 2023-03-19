@@ -28,8 +28,7 @@ namespace DocumentService.Controllers
 
             if (document == null)
             {
-                return NotFound();
-                // throw new InvalidOperationException($"{(int)HttpStatusCode.NotFound} Document not found");
+                throw new InvalidOperationException($"{(int)HttpStatusCode.NotFound} Document not found");
             }
 
             return document;
