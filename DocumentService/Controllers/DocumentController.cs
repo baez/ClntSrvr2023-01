@@ -34,6 +34,18 @@ namespace DocumentService.Controllers
             return document;
         }
 
+        [HttpPost]
+        public ActionResult<Document> Post([FromBody] Document document)
+        {
+            if (string.IsNullOrWhiteSpace(document.Id))
+            {
+                throw new InvalidOperationException("Document is invalid.");
+            }
+
+            documentRepository.Add(document);
+
+            return new OkObjectResult(document);
+        }
 
         /// <summary>
         /// sample call uri: https://localhost:44385/api/document/author?val=3
