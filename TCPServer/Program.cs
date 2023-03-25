@@ -24,6 +24,7 @@ namespace TCPServer
 
             try
             {
+                // Create a listener to accept client connections
                 tcpListener = new TcpListener(IPAddress.Any, port);
                 tcpListener.Start();
 
@@ -35,6 +36,7 @@ namespace TCPServer
 
             byte[] receiveBuffer = new byte[bufferSize];
 
+            // Accepting requests and servicing them
             while(true)
             {
                 TcpClient tcpClient = null;
@@ -48,6 +50,8 @@ namespace TCPServer
 
                     int totalBytesEchoed = 0;
                     int bytesRecieved = 0;
+
+                    // Receive until client closes connection 
                     while (totalBytesEchoed < receiveBuffer.Length)
                     {
                         bytesRecieved = networkStream.Read(receiveBuffer, totalBytesEchoed, receiveBuffer.Length - totalBytesEchoed);
@@ -61,6 +65,7 @@ namespace TCPServer
 
                     Console.WriteLine($"Received {totalBytesEchoed} bytes from client:");
 
+                    // Close the stream and socket.
                     networkStream.Close();
                     tcpClient.Close();
                 }
