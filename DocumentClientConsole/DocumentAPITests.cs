@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
     using DataModels;
     using Newtonsoft.Json;
@@ -11,10 +12,29 @@
         static async Task Main(string[] args)
         {
             var testApp = new DocumentAPITests();   
-            await testApp.GetDocumentTest();   
+            await testApp.CreateDocument_WhenDocumentIsNew_ShouldCreateDocument();
+            await testApp.GetDocument_WhenDocumentExists_ShouldReturnDocument();
         }
 
-        private async Task GetDocumentTest()
+        private async Task CreateDocument_WhenDocumentIsNew_ShouldCreateDocument()
+        {
+            var document = new Document()
+            {
+                Id = "901Test1",
+                Title = "TitleTest1",
+                Text = "TextTest1",
+                Author = "AuthorTest1"
+            };
+
+            var serializedDocument = JsonConvert.SerializeObject(document);
+            var content = new StringContent(serializedDocument, UnicodeEncoding.UTF8, "application/json");
+
+            var localBaseUri = "https://localhost:44385/api/document/document";
+            var httpClient = new HttpClient();
+            var postResult = await httpClient.PostAsync(localBaseUri, content);
+        }
+
+        private async Task GetDocument_WhenDocumentExists_ShouldReturnDocument()
         {
             Console.WriteLine("Get Document Test");
 

@@ -35,6 +35,7 @@ namespace DocumentService.Controllers
         }
 
         [HttpPost]
+        [Route("api/[controller]/document")]
         public ActionResult<Document> Post([FromBody] Document document)
         {
             if (string.IsNullOrWhiteSpace(document.Id))
