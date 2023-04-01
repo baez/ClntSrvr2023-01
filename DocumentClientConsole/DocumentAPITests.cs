@@ -1,14 +1,13 @@
 ﻿namespace DocumentClientConsole
 {
+    using DataModels;
     using DocumentAPITestApp;
     using Newtonsoft.Json;
     using System;
     using System.Diagnostics;
     using System.Net.Http;
-    using System.Reflection.Metadata;
     using System.Text;
     using System.Threading.Tasks;
-    using models=DataModels;
 
     internal class DocumentAPITests
     {
@@ -23,7 +22,7 @@
         private async Task CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument()
         {
             ApiTestHelper.WriteTestStart(nameof(CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument));   
-            var document = new models.Document()
+            var document = new Document()
             {
                 Id = "901Test1",
                 Title = "TitleTest1",
@@ -97,7 +96,7 @@
             }
          
             // Desrialization of a string received by the client back into an in-memory object
-            var document = JsonConvert.DeserializeObject<models.Document>(doc);
+            var document = JsonConvert.DeserializeObject<Document>(doc);
             
             Console.WriteLine($"Document GET test succeeded. Title received from the service: {document.Title}.  Elapsed time: {stopwatch.Elapsed}");
             Console.WriteLine(doc);
