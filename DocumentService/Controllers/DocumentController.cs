@@ -47,6 +47,19 @@ namespace DocumentService.Controllers
             return new OkObjectResult(document);
         }
 
+        [HttpDelete]
+        public ActionResult<Document> Delete([FromBody] Document document)
+        {
+            if (string.IsNullOrWhiteSpace(document.Id))
+            {
+                throw new InvalidOperationException("Document is invalid.");
+            }
+
+            documentRepository.Remove(document);
+
+            return new OkObjectResult(document);
+        }
+
         /// <summary>
         /// sample call uri: https://localhost:44385/api/document/author?val=3
         /// </summary>

@@ -47,7 +47,22 @@ namespace Repositories
 
         public void Add(Document document)
         {
+            if (this.TryFind(document))
+            {
+                throw new InvalidOperationException("Document already exists");
+            }
+
             _documents.Add(document.Id, document);
+        }
+
+        public void Remove(Document document)
+        {
+            if (!this.TryFind(document))
+            {
+                throw new InvalidOperationException("Document does not exists");
+            }
+
+            _documents.Remove(document.Id);
         }
 
         public Document Get(string id)
@@ -57,6 +72,8 @@ namespace Repositories
                 throw new ArgumentNullException(nameof(id), "id cannot be null or empty.");
             }
 
+            // id = 1, document {id=1, title="aaa", text="asass"}
+            // id = 72, document {id=72, title="zxzx", text="5445fffasass"}
             if (_documents.TryGetValue(id, out Document value))
             {
                 return value;
@@ -84,37 +101,7 @@ namespace Repositories
             return documentAsString;
         }
 
-        //public void Remove(Document document)
-        //{
-        //    _documents.Remove(document);
-        //}
-
-        //public void Update(string id, Document document)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public void Initialize()
-        {
-
-        }
-
-        public void Interpret(string text)
-        {
-
-        }
-
-        public Task<string> GetFromService(string Id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Document> GetAll(string title)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(Document document)
         {
             throw new NotImplementedException();
         }
@@ -122,6 +109,11 @@ namespace Repositories
         public void Update(string id, Document document)
         {
             throw new NotImplementedException();
+        }
+
+        private bool TryFind(Document document)
+        {
+            return _documents.TryGetValue(document.Id, out var result);
         }
     }
 }
