@@ -26,16 +26,20 @@ namespace TCPClient
 
             try
             {
+                // Creates a socket that is connected to the server on specidied IP and Port
                 tcpClient = new TcpClient(server, port);
                 Console.WriteLine("connected to server .. sending the message");
 
                 networkStream = tcpClient.GetStream();
                 Console.WriteLine("sending message over the stream");
+
                 networkStream.Write(byteBuffer, 0, byteBuffer.Length);
                 Console.WriteLine($"Sent {byteBuffer.Length} bytes to the server");
 
                 int totalBytesReceived = 0;
                 int bytesRecieved = 0;
+                
+                // Receive the same string we just sent back from the server
                 while(totalBytesReceived < byteBuffer.Length)
                 {
                     bytesRecieved = networkStream.Read(byteBuffer, totalBytesReceived, byteBuffer.Length - totalBytesReceived);

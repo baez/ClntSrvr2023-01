@@ -10,12 +10,12 @@ namespace Interfaces
     {
         Document Get(string Id);
 
-        List<Document> GetAll(string title);
+        // List<Document> GetAll(string title);
 
         void Add(Document document);
 
-        void Remove(Document document);
+        // void Remove(Document document);
 
-        void Update(string id, Document document);
+        // void Update(string id, Document document);
     }
 }
