@@ -11,7 +11,7 @@ namespace Interfaces
 
         void Add(Document document);
 
-        void Remove(Document document);
+        void Remove(string id);
 
         void Update(string id, Document document);
     }

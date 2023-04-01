@@ -14,6 +14,29 @@ namespace DocumentService.Controllers
         private IDocumentRepository documentRepository = new DocumentRepository();
 
         /// <summary>
+        /// sample call uri: https://localhost:44385/api/document/author?val=3
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/[controller]/ping")]
+
+        public ActionResult<List<Document>> GetDefault()
+        {
+            var docs = new List<Document>()
+            {
+                new Document()
+                {
+                    Id = "101",
+                    Title = $"CSTP 1303 Document Service is running: {DateTime.Now}",
+                    Author = "George K."
+                }
+            };
+
+            return docs;
+        }
+
+        /// <summary>
         /// GET a single document from the service 
         /// [Route("api/document/id")]
         /// 2/25 ==> New sample uri: https://localhost:44385/api/document/id?val=3
@@ -35,7 +58,7 @@ namespace DocumentService.Controllers
         }
 
         [HttpPost]
-        [Route("api/[controller]/document")]
+        [Route("api/[controller]/add")]
         public ActionResult<Document> Post([FromBody] Document document)
         {
             if (string.IsNullOrWhiteSpace(document.Id))
@@ -49,16 +72,17 @@ namespace DocumentService.Controllers
         }
 
         [HttpDelete]
-        public ActionResult<Document> Delete([FromBody] Document document)
+        [Route("api/[controller]/remove")]
+        public ActionResult<Document> Delete(string id)
         {
-            if (string.IsNullOrWhiteSpace(document.Id))
+            if (string.IsNullOrWhiteSpace(id))
             {
                 throw new InvalidOperationException("Document is invalid.");
             }
 
-            documentRepository.Remove(document);
+            documentRepository.Remove(id);
 
-            return new OkObjectResult(document);
+            return new OkObjectResult(id);
         }
 
         /// <summary>

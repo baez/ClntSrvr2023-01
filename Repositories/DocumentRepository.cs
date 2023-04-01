@@ -47,7 +47,7 @@ namespace Repositories
 
         public void Add(Document document)
         {
-            if (this.TryFind(document))
+            if (this.TryFind(document.Id))
             {
                 throw new InvalidOperationException("Document already exists");
             }
@@ -55,14 +55,14 @@ namespace Repositories
             _documents.Add(document.Id, document);
         }
 
-        public void Remove(Document document)
+        public void Remove(string id)
         {
-            if (!this.TryFind(document))
+            if (!this.TryFind(id))
             {
                 throw new InvalidOperationException("Document does not exists");
             }
 
-            _documents.Remove(document.Id);
+            _documents.Remove(id);
         }
 
         public Document Get(string id)
@@ -111,9 +111,9 @@ namespace Repositories
             throw new NotImplementedException();
         }
 
-        private bool TryFind(Document document)
+        private bool TryFind(string id)
         {
-            return _documents.TryGetValue(document.Id, out var result);
+            return _documents.TryGetValue(id, out var result);
         }
     }
 }

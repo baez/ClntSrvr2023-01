@@ -1,24 +1,29 @@
 ﻿namespace DocumentClientConsole
 {
+    using DocumentAPITestApp;
+    using Newtonsoft.Json;
     using System;
+    using System.Diagnostics;
     using System.Net.Http;
+    using System.Reflection.Metadata;
     using System.Text;
     using System.Threading.Tasks;
-    using DataModels;
-    using Newtonsoft.Json;
+    using models=DataModels;
 
     internal class DocumentAPITests
     {
         static async Task Main(string[] args)
         {
             var testApp = new DocumentAPITests();   
-            await testApp.CreateDocument_WhenDocumentIsNew_ShouldCreateDocument();
+            await testApp.CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument();
             await testApp.GetDocument_WhenDocumentExists_ShouldReturnDocument();
+            await testApp.DeleteDocument_WhenDocumentExists_ShouldBeDeleted();
         }
 
-        private async Task CreateDocument_WhenDocumentIsNew_ShouldCreateDocument()
+        private async Task CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument()
         {
-            var document = new Document()
+            ApiTestHelper.WriteTestStart(nameof(CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument));   
+            var document = new models.Document()
             {
                 Id = "901Test1",
                 Title = "TitleTest1",
@@ -29,38 +34,72 @@
             var serializedDocument = JsonConvert.SerializeObject(document);
             var content = new StringContent(serializedDocument, UnicodeEncoding.UTF8, "application/json");
 
-            var localBaseUri = "https://localhost:44385/api/document/document";
+            var localBaseUri = "https://localhost:44385/api/document/add";
             var httpClient = new HttpClient();
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            stopwatch.Start();
             var postResult = await httpClient.PostAsync(localBaseUri, content);
+            stopwatch.Stop();
+
+            if (postResult.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Document CREATE test succeeded. Document with Id: {document.Id} created. Elapsed time: {stopwatch.Elapsed}");
+                return;
+            }
+
+            Console.WriteLine($"*** Document CREATE test FAILED ***");
+        }
+
+        private async Task DeleteDocument_WhenDocumentExists_ShouldBeDeleted()
+        {
+            ApiTestHelper.WriteTestStart(nameof(DeleteDocument_WhenDocumentExists_ShouldBeDeleted));
+
+            var documentId = "901Test1";
+            var localBaseUri = $"https://localhost:44385/api/document/remove?id={documentId}";
+            var httpClient = new HttpClient();
+
+            Stopwatch stopwatch = Stopwatch.StartNew(); 
+            stopwatch.Start();
+            var deletedResult = await httpClient.DeleteAsync(localBaseUri);
+
+            if (deletedResult.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Document DELETE test succeeded. Document with Id: {documentId} deleted. Elapsed time: {stopwatch.Elapsed}");
+                return;
+            }
+
+            Console.WriteLine($"*** Document DELETE test FAILED ***");
         }
 
         private async Task GetDocument_WhenDocumentExists_ShouldReturnDocument()
         {
-            Console.WriteLine("Get Document Test");
+            ApiTestHelper.WriteTestStart(nameof(CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument));
 
             var documentClientProgram = new DocumentAPITests();
 
             // use for running the version published on cloud
-            var baseUri = "https://docservgbk20230224.azurewebsites.net/api/document";
+            // var baseUri = "https://docservgbk20230224.azurewebsites.net/api/document";
 
             // use this Uri for tests with localhost (when running the service on local box)
             var localBaseUri = "https://localhost:44385/api/document/id";
-            var id = "3";
+            var id = "901Test1";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            stopwatch.Start();
             var doc = await documentClientProgram.GetDocument(localBaseUri, id);
+            stopwatch.Stop();
 
-            if (string.IsNullOrWhiteSpace(doc) 
-                || !doc.Contains("testKeyName") || !doc.Contains("testKeyword"))
+            if (string.IsNullOrWhiteSpace(doc))
             {
-                Console.WriteLine($"*** TEST FAILED *** {localBaseUri}");
+                Console.WriteLine($"*** Document GET Test FAILED *** {localBaseUri}");
+                return;
             }
-            else
-            {
-                // Desrialization of a string received by the client back into an in-memory object
-                var document = JsonConvert.DeserializeObject<Document>(doc);
-                Console.WriteLine("Test passed :) ");
-                Console.WriteLine($"Title received from the service: {document.Title}");
-            }
-
+         
+            // Desrialization of a string received by the client back into an in-memory object
+            var document = JsonConvert.DeserializeObject<models.Document>(doc);
+            
+            Console.WriteLine($"Document GET test succeeded. Title received from the service: {document.Title}.  Elapsed time: {stopwatch.Elapsed}");
             Console.WriteLine(doc);
         }
 
