@@ -1,15 +1,14 @@
 ﻿namespace ConsoleApp1
 {
-    using System;
-    using ConsoleApp1.Network;
     using ConsoleApp1.LangReview;
+    using ConsoleApp1.Network;
+    using DataModels;
+    using Repositories;
+    using System;
     using System.Collections.Generic;
     using System.Threading;
-    using mine = ConsoleApp1.LangReview;
     using System.Threading.Tasks;
-    using DataModels;
-    using System.Net.Http;
-    using static System.Net.WebRequestMethods;
+    using mine = ConsoleApp1.LangReview;
 
     public class Program
     {

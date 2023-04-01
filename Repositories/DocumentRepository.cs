@@ -108,5 +108,20 @@ namespace Repositories
         {
             throw new NotImplementedException();
         }
+
+        public List<Document> GetAll(string title)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Document document)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(string id, Document document)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
