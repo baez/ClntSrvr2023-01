@@ -19,12 +19,12 @@
             await testApp.DeleteDocument_WhenDocumentExists_ShouldBeDeleted();
         }
 
-        private async Task CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument()
+        private async Task CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument(string documentId = "901Test1")
         {
             ApiTestHelper.WriteTestStart(nameof(CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument));   
             var document = new Document()
             {
-                Id = "901Test1",
+                Id = documentId,
                 Title = "TitleTest1",
                 Text = "TextTest1",
                 Author = "AuthorTest1"
@@ -50,11 +50,10 @@
             Console.WriteLine($"*** Document CREATE test FAILED ***");
         }
 
-        private async Task DeleteDocument_WhenDocumentExists_ShouldBeDeleted()
+        private async Task DeleteDocument_WhenDocumentExists_ShouldBeDeleted(string documentId = "901Test1")
         {
             ApiTestHelper.WriteTestStart(nameof(DeleteDocument_WhenDocumentExists_ShouldBeDeleted));
 
-            var documentId = "901Test1";
             var localBaseUri = $"https://localhost:44385/api/document/remove?id={documentId}";
             var httpClient = new HttpClient();
 
@@ -71,7 +70,7 @@
             Console.WriteLine($"*** Document DELETE test FAILED ***");
         }
 
-        private async Task GetDocument_WhenDocumentExists_ShouldReturnDocument()
+        private async Task GetDocument_WhenDocumentExists_ShouldReturnDocument(string documentId = "901Test1")
         {
             ApiTestHelper.WriteTestStart(nameof(CreateDocument_WhenDocumentDoesNotExist_ShouldCreateDocument));
 
@@ -82,11 +81,10 @@
 
             // use this Uri for tests with localhost (when running the service on local box)
             var localBaseUri = "https://localhost:44385/api/document/id";
-            var id = "901Test1";
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             stopwatch.Start();
-            var doc = await documentClientProgram.GetDocument(localBaseUri, id);
+            var doc = await documentClientProgram.GetDocument(localBaseUri, documentId);
             stopwatch.Stop();
 
             if (string.IsNullOrWhiteSpace(doc))
