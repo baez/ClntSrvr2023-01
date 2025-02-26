@@ -60,6 +60,7 @@ Client-Server Architecture: Understanding the foundational principles of client-
 Protocol Implementation: Gaining hands-on experience with various communication protocols such as HTTP, TCP/IP, and WebSockets.
 Asynchronous Programming: Applying asynchronous patterns to manage I/O operations efficiently.
 Practical Networking: Building practical skills in network programming and troubleshooting.
-License
 
-### This project is licensed under the Apache License 2.0 – feel free to use and modify it.
+### License
+
+This project is licensed under the Apache License 2.0 – feel free to use and modify it.
